@@ -6,6 +6,7 @@ node_modules
 .DS_Store
 dist
 package-lock.json
+tsconfig.tsbuildinfo
 **/*.js
 **/*.js.map
 **/*.d.ts
