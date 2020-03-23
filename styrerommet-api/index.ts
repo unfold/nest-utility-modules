@@ -1,0 +1,5 @@
+import 'reflect-metadata'
+export * from './styrerommet-api.module'
+export * from './config/styrerommet.config'
+export * from './service/styrerommet-graphql-client.factory'
+export * from './types/interfaces'

@@ -1,0 +1,6 @@
+import 'reflect-metadata'
+export * from './obos-sso.module'
+export * from './config/obos-sso.config'
+export * from './service/obos-sso-get-token.service'
+export * from './service/obos-sso-validate-token.service'
+export * from './types/interfaces'
