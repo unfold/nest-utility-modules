@@ -10,3 +10,4 @@ tsconfig.tsbuildinfo
 **/*.js
 **/*.js.map
 **/*.d.ts
+!jest.config.js
