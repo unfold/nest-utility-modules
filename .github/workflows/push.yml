@@ -3,19 +3,23 @@ name: Push
 on: [push]
 
 jobs:
-  test:
-    name: Run tests
+  on_push:
+    name: Test, build and publish
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x]
-
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 12.x
       - run: npm install
       - run: npm run test:ci
-      - run: npm run build
+      - name: Build
+        if: github.ref == 'refs/heads/publish'
+        run: npm run build
+      - name: Publish
+        if: github.ref == 'refs/heads/publish'
+        uses: mikeal/merge-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

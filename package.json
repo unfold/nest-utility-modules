@@ -15,7 +15,8 @@
     "format:fix": "npm run prettier:fix && npm run lint:fix",
     "format:check": "npm run prettier:check && npm run lint:check",
     "prepush": "npm run test && npm run format:check",
-    "test:ci": "npm run prepush"
+    "test:ci": "npm run prepush",
+    "npm:publish": "git fetch origin master:publish && git push --no-verify origin publish:publish && git branch -D publish"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
