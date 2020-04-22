@@ -23,9 +23,20 @@ export class StyrerommetGraphqlClient {
     const data = await response.json()
 
     if (isArray(data.errors) && data.errors.length > 0) {
+      // const errorMessages = data.errors.map((error: { message: string; code: string }) => `${error.message} [code: ${error.code}]`)
+      //
+      // throw new Error(`Graphql errors: ${errorMessages.join(', ')}`)
       const errorMessages = data.errors.map((error: { message: string; code: string }) => `${error.message} [code: ${error.code}]`)
+      const message = errorMessages.join(', ')
+      if (message.match(/bad gateway/gi)) {
+        throw new StyrerommetGraphqlResponseStatusError(HttpStatus.BAD_GATEWAY, `Graphql error: ${message}`)
+      }
 
-      throw new Error(`Graphql errors: ${errorMessages.join(', ')}`)
+      if (message.match(/ESOCKETTIMEDOUT/gi)) {
+        throw new StyrerommetGraphqlResponseStatusError(HttpStatus.GATEWAY_TIMEOUT, `Graphql error: ${message}`)
+      }
+
+      throw new Error(`Graphql errors: ${message}`)
     }
 
     return data as T
