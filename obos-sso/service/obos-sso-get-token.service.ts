@@ -30,7 +30,7 @@ export class ObosSsoGetTokenService {
     }
 
     const response = await this.fetchService.call({
-      data: stringify({
+      rawData: stringify({
         applicationcredential: `
             <applicationcredential>
               <params>
