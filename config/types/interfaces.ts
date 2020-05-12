@@ -3,7 +3,7 @@ export interface ConfigDataInterface {
 }
 
 export interface ConfigModuleOptionsInterface {
-  filePath: string
+  filePath?: string
   processConfigData?: (loadedConfig: ConfigDataInterface) => ConfigDataInterface
   noFallbackToProcessEnv?: boolean
   debug?: boolean

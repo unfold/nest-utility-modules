@@ -15,7 +15,8 @@ export class ConfigService {
     this.debug = !!options.debug
 
     let loadedConfig: ConfigDataInterface = {}
-    if (fs.existsSync(options.filePath)) {
+    if (options.filePath && fs.existsSync(options.filePath)) {
+      this.printDebug(`[ConfigService] loading file: '${options.filePath}'`)
       loadedConfig = dotenv.parse(fs.readFileSync(options.filePath))
       this.printDebug(`[ConfigService] Config loaded - file '${options.filePath}'`)
     } else {
