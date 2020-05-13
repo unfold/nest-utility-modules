@@ -1,8 +1,8 @@
 import { DynamicModule } from '@nestjs/common'
 import { NotificationsApiConfigDataInterface, NotificationsApiCoreModuleOptionsInterface } from './types/interfaces'
-import { UnfoldUtilsModule } from '../unfold-utils'
 import { NOTIFICATIONS_API_CONFIG_SERVICE, NotificationsApiCoreModule } from './notifications-api-core.module'
 import { NotificationApiConfig } from './config/notification-api.config'
+import { UnfoldUtilsModule } from '../unfold-utils/unfold-utils.module'
 
 export class NotificationsApiModule {
   static async forAsyncRoot(options: NotificationsApiCoreModuleOptionsInterface): Promise<DynamicModule> {

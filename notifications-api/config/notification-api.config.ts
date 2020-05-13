@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { NotificationsApiConfigDataInterface } from '..'
+import { NotificationsApiConfigDataInterface } from '../types/interfaces'
 
 @Injectable()
 export class NotificationApiConfig {

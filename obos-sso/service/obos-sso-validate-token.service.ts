@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import * as HttpStatus from 'http-status-codes'
-import { UnfoldLoggerService } from '../../unfold-logger'
-import { FetchService } from '../../unfold-utils'
-import { ObosSsoConfig } from '..'
+import { ObosSsoConfig } from '../config/obos-sso.config'
+import { FetchService } from '../../unfold-utils/service/fetch.service'
+import { UnfoldLoggerService } from '../../unfold-logger/service/unfold-logger.service'
 
 @Injectable()
 export class ObosSsoValidateTokenService {

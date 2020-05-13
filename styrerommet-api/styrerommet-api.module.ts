@@ -3,7 +3,7 @@ import { StyrerommetConfigDataInterface, StyrerommetCoreModuleOptionsInterface }
 import { STYREROMMET_CONFIG_SERVICE, StyrerommetApiCoreModule } from './styrerommet-api-core.module'
 import { StyrerommetConfig } from './config/styrerommet.config'
 import { StyrerommetGraphqlClientFactory } from './service/styrerommet-graphql-client.factory'
-import { UnfoldUtilsModule } from '../unfold-utils'
+import { UnfoldUtilsModule } from '../unfold-utils/unfold-utils.module'
 
 export class StyrerommetApiModule {
   static async forAsyncRoot(options: StyrerommetCoreModuleOptionsInterface): Promise<DynamicModule> {

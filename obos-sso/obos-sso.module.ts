@@ -4,9 +4,9 @@ import { ObosSsoValidateTokenService } from './service/obos-sso-validate-token.s
 import { OBOS_SSO_MODULE_CONFIG, ObosSsoCoreModule } from './obos-sso-core.module'
 import { ObosSsoConfigDataInterface, ObosSsoCoreModuleOptionsInterface } from './types/interfaces'
 import { PassportModule } from '@nestjs/passport'
-import { UnfoldUtilsModule } from '../unfold-utils'
 import { ObosSsoConfig } from './config/obos-sso.config'
 import { ObosSsoTokenStrategy } from './strategy/obos-sso-token.strategy'
+import { UnfoldUtilsModule } from '../unfold-utils/unfold-utils.module'
 
 export class ObosSsoModule {
   static forRoot(options: ObosSsoCoreModuleOptionsInterface): DynamicModule {

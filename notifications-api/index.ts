@@ -1,5 +1,0 @@
-import 'reflect-metadata'
-export * from './notifications-api.module'
-export * from './config/notification-api.config'
-export * from './service/email.service'
-export * from './types/interfaces'

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { ObosSsoConfigDataInterface } from '..'
+import { ObosSsoConfigDataInterface } from '../types/interfaces'
 
 @Injectable()
 export class ObosSsoConfig {

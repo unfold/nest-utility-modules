@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { FetchService } from '../../unfold-utils'
-import { NotificationApiConfig } from '..'
-import { ObosSsoGetTokenService } from '../../obos-sso'
+import { NotificationApiConfig } from '../config/notification-api.config'
 import * as HttpStatus from 'http-status-codes'
+import { FetchService } from '../../unfold-utils/service/fetch.service'
+import { ObosSsoGetTokenService } from '../../obos-sso/service/obos-sso-get-token.service'
 
 interface EmailInputInterface {
   type: string
