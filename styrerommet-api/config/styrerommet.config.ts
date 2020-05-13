@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { StyrerommetConfigDataInterface } from '../types/interfaces'
+import { StyrerommetConfigDataInterface } from '..'
 
 @Injectable()
 export class StyrerommetConfig {

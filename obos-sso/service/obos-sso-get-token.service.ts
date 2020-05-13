@@ -4,10 +4,9 @@ import { get, isUndefined } from 'lodash'
 import ms = require('ms')
 import { stringify } from 'querystring'
 import * as xml2js from 'xml2js'
-import { UnfoldLoggerService } from '../../unfold-logger/service/unfold-logger.service.js'
-import { TimedCacheService } from '../../unfold-utils/service/timed-cache.service'
-import { ObosSsoConfig } from '../config/obos-sso.config'
-import { FetchService } from '../../unfold-utils/service/fetch.service'
+import { UnfoldLoggerService } from '../../unfold-logger'
+import { FetchService, TimedCacheService } from '../../unfold-utils'
+import { ObosSsoConfig } from '..'
 
 @Injectable()
 export class ObosSsoGetTokenService {
@@ -23,10 +22,11 @@ export class ObosSsoGetTokenService {
   }
 
   private async fetchObosToken(): Promise<string> {
-    if (this.ssoConfig.OBOS_STATIC_AUTHENTICATION_API_KEY) {
-      this.logger.debug(`[fetchObosToken] Using static token: ${this.ssoConfig.OBOS_STATIC_AUTHENTICATION_API_KEY}`)
+    const staticToken = this.ssoConfig.getObosSsoStaticAuthenticationApiKey()
+    if (staticToken) {
+      this.logger.debug(`[fetchObosToken] Using static token: ${staticToken}`)
 
-      return this.ssoConfig.OBOS_STATIC_AUTHENTICATION_API_KEY
+      return staticToken
     }
 
     const response = await this.fetchService.call({
@@ -34,8 +34,8 @@ export class ObosSsoGetTokenService {
         applicationcredential: `
             <applicationcredential>
               <params>
-                <applicationID>${this.ssoConfig.OBOS_SSO_APP_ID}</applicationID>
-                <applicationSecret>${this.ssoConfig.OBOS_SSO_APP_SECRET}</applicationSecret>
+                <applicationID>${this.ssoConfig.getObosSsoAppId()}</applicationID>
+                <applicationSecret>${this.ssoConfig.getObosSsoAppSecret()}</applicationSecret>
               </params>
             </applicationcredential>
             `,
@@ -44,7 +44,7 @@ export class ObosSsoGetTokenService {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       method: 'POST',
-      url: `${this.ssoConfig.OBOS_SSO_URL}/tokenservice/logon`,
+      url: `${this.ssoConfig.getObosSsoUrl()}/tokenservice/logon`,
     })
 
     if (response.status !== HttpStatus.OK) {

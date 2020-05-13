@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { StyrerommetConfig } from '../config/styrerommet.config'
-import { Service } from '../types/interfaces'
-import { StyrerommetGraphqlClient } from '../utils/graphql-client/styrerommet-graphql-client'
 import { StyrerommetApiRequest } from '../utils/request/styrerommet-api-request'
-import { ObosSsoGetTokenService } from '../../obos-sso/service/obos-sso-get-token.service'
-import { FetchService } from '../../unfold-utils/service/fetch.service'
+import { ObosSsoGetTokenService } from '../../obos-sso'
+import { FetchService } from '../../unfold-utils'
+import { Service, StyrerommetConfig, StyrerommetGraphqlClient } from '..'
 
 @Injectable()
 export class StyrerommetGraphqlClientFactory {

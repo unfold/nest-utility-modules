@@ -1,23 +1,23 @@
 import { Injectable } from '@nestjs/common'
-import { ObosSsoConfigDataInterface } from '../types/interfaces'
+import { ObosSsoConfigDataInterface } from '..'
 
 @Injectable()
 export class ObosSsoConfig {
   constructor(private ssoConfig: ObosSsoConfigDataInterface) {}
 
-  get OBOS_SSO_URL(): string {
+  getObosSsoUrl(): string {
     return this.ssoConfig.OBOS_SSO_URL
   }
 
-  get OBOS_SSO_APP_ID(): number {
+  getObosSsoAppId(): number {
     return this.ssoConfig.OBOS_SSO_APP_ID
   }
 
-  get OBOS_SSO_APP_SECRET(): string {
+  getObosSsoAppSecret(): string {
     return this.ssoConfig.OBOS_SSO_APP_SECRET
   }
 
-  get OBOS_STATIC_AUTHENTICATION_API_KEY(): string | null {
+  getObosSsoStaticAuthenticationApiKey(): string | null {
     return this.ssoConfig.OBOS_STATIC_AUTHENTICATION_API_KEY ?? null
   }
 }

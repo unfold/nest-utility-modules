@@ -1,9 +1,9 @@
 import { DynamicModule } from '@nestjs/common'
 import { StyrerommetConfigDataInterface, StyrerommetCoreModuleOptionsInterface } from './types/interfaces'
-import { STYREROMMET_MODULE_CONFIG, StyrerommetApiCoreModule } from './styrerommet-api-core.module'
+import { STYREROMMET_CONFIG_SERVICE, StyrerommetApiCoreModule } from './styrerommet-api-core.module'
 import { StyrerommetConfig } from './config/styrerommet.config'
 import { StyrerommetGraphqlClientFactory } from './service/styrerommet-graphql-client.factory'
-import { UnfoldUtilsModule } from '../unfold-utils/unfold-utils.module'
+import { UnfoldUtilsModule } from '../unfold-utils'
 
 export class StyrerommetApiModule {
   static async forAsyncRoot(options: StyrerommetCoreModuleOptionsInterface): Promise<DynamicModule> {
@@ -14,7 +14,7 @@ export class StyrerommetApiModule {
         {
           provide: StyrerommetConfig,
           useFactory: (config: StyrerommetConfigDataInterface) => new StyrerommetConfig(config),
-          inject: [STYREROMMET_MODULE_CONFIG],
+          inject: [STYREROMMET_CONFIG_SERVICE],
         },
         StyrerommetGraphqlClientFactory,
       ],
