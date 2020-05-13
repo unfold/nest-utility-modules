@@ -3,6 +3,7 @@ import { NotificationsApiConfigDataInterface, NotificationsApiCoreModuleOptionsI
 import { NOTIFICATIONS_API_CONFIG_SERVICE, NotificationsApiCoreModule } from './notifications-api-core.module'
 import { NotificationApiConfig } from './config/notification-api.config'
 import { UnfoldUtilsModule } from '../unfold-utils/unfold-utils.module'
+import { EmailService } from './service/email.service'
 
 export class NotificationsApiModule {
   static async forAsyncRoot(options: NotificationsApiCoreModuleOptionsInterface): Promise<DynamicModule> {
@@ -15,8 +16,9 @@ export class NotificationsApiModule {
           useFactory: (config: NotificationsApiConfigDataInterface) => new NotificationApiConfig(config),
           inject: [NOTIFICATIONS_API_CONFIG_SERVICE],
         },
+        EmailService,
       ],
-      exports: [],
+      exports: [EmailService],
     }
   }
 }
