@@ -22,7 +22,7 @@ export class StyrerommetApiModule {
         StyrerommetApiRequestFactory,
         NodeIdParser,
       ],
-      exports: [StyrerommetGraphqlClientFactory, StyrerommetApiRequestFactory, NodeIdParser],
+      exports: [StyrerommetGraphqlClientFactory, StyrerommetApiRequestFactory, StyrerommetConfig, NodeIdParser],
     }
   }
 }
