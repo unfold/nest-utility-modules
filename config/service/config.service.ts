@@ -11,6 +11,9 @@ export class ConfigService {
   private readonly debug: boolean
 
   constructor(options: ConfigModuleOptionsInterface) {
+    this.printDebug('[ConfigService] options:', options)
+    this.printDebug('[ConfigService] process.env:', process.env)
+
     this.fallbackToProcessEnv = !options.noFallbackToProcessEnv
     this.debug = !!options.debug
 
