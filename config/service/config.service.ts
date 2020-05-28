@@ -23,7 +23,6 @@ export class ConfigService {
       this.printDebug(`[ConfigService] Config file '${options.filePath}' not found`)
     }
 
-    this.envConfig = options.processConfigData ? options.processConfigData(loadedConfig) : loadedConfig
     if (options.attachProcessEnvToLoadedConfig) {
       this.envConfig = {
         ...Object.keys(process.env).reduce((prev: ConfigDataInterface, key: string) => {
@@ -35,6 +34,7 @@ export class ConfigService {
         ...this.envConfig,
       }
     }
+    this.envConfig = options.processConfigData ? options.processConfigData(loadedConfig) : loadedConfig
     this.printDebug('[ConfigService] Config data:', this.envConfig)
   }
 
