@@ -6,5 +6,6 @@ export interface ConfigModuleOptionsInterface {
   filePath?: string
   processConfigData?: (loadedConfig: ConfigDataInterface) => ConfigDataInterface
   noFallbackToProcessEnv?: boolean
+  attachProcessEnvToLoadedConfig?: boolean
   debug?: boolean
 }

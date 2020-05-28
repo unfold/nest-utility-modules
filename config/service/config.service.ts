@@ -24,6 +24,17 @@ export class ConfigService {
     }
 
     this.envConfig = options.processConfigData ? options.processConfigData(loadedConfig) : loadedConfig
+    if (options.attachProcessEnvToLoadedConfig) {
+      this.envConfig = {
+        ...Object.keys(process.env).reduce((prev: ConfigDataInterface, key: string) => {
+          if (process.env[key]) {
+            prev = { ...prev, [key]: process.env[key] as string }
+          }
+          return prev
+        }, {}),
+        ...this.envConfig,
+      }
+    }
     this.printDebug('[ConfigService] Config data:', this.envConfig)
   }
 
