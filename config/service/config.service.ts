@@ -15,7 +15,6 @@ export class ConfigService {
     this.debug = !!options.debug
 
     this.printDebug('[ConfigService] options:', options)
-    this.printDebug('[ConfigService] process.env:', process.env)
 
     let loadedConfig: ConfigDataInterface = {}
     if (options.filePath && fs.existsSync(options.filePath)) {
@@ -27,14 +26,14 @@ export class ConfigService {
     }
 
     if (options.attachProcessEnvToLoadedConfig) {
-      this.envConfig = {
+      loadedConfig = {
         ...Object.keys(process.env).reduce((prev: ConfigDataInterface, key: string) => {
           if (process.env[key]) {
             prev = { ...prev, [key]: process.env[key] as string }
           }
           return prev
         }, {}),
-        ...this.envConfig,
+        ...loadedConfig,
       }
     }
     this.envConfig = options.processConfigData ? options.processConfigData(loadedConfig) : loadedConfig
