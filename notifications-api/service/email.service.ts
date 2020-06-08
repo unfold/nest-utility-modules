@@ -4,6 +4,7 @@ import * as HttpStatus from 'http-status-codes'
 import { FetchService } from '../../unfold-utils/service/fetch.service'
 import { ObosSsoGetTokenService } from '../../obos-sso/service/obos-sso-get-token.service'
 import * as uuid from 'uuid'
+import { SendOptionsInterface } from '../types/interfaces'
 
 interface EmailInputInterface {
   type: string
@@ -18,16 +19,11 @@ interface EmailSendResultInterface {
   }
 }
 
-export interface EmailSendOptionsInterface {
-  requestId?: string
-  throwOnFailure?: boolean
-}
-
 @Injectable()
 export class EmailService {
   constructor(private fetch: FetchService, private config: NotificationApiConfig, private obosToken: ObosSsoGetTokenService) {}
 
-  async send(input: EmailInputInterface, options: EmailSendOptionsInterface = {}): Promise<EmailSendResultInterface> {
+  async send(input: EmailInputInterface, options: SendOptionsInterface = {}): Promise<EmailSendResultInterface> {
     const response = await this.fetch.call({
       method: 'POST',
       url: `${this.config.getNotificationApiUrl()}/email/send`,
@@ -43,7 +39,7 @@ export class EmailService {
     const success = [HttpStatus.OK, HttpStatus.CREATED].includes(response.status)
 
     if (options.throwOnFailure && !success) {
-      throw new Error(`Sending email failed: [${response.status}] ${await response.text()}, input: ${JSON.stringify(input)}`)
+      throw new Error(`[EmailService] Sending email failed: [${response.status}] ${await response.text()}, input: ${JSON.stringify(input)}`)
     }
 
     return {

@@ -4,6 +4,7 @@ import { NOTIFICATIONS_API_CONFIG_SERVICE, NotificationsApiCoreModule } from './
 import { NotificationApiConfig } from './config/notification-api.config'
 import { UnfoldUtilsModule } from '../unfold-utils/unfold-utils.module'
 import { EmailService } from './service/email.service'
+import { PushNotificationService } from './service/push-notification.service'
 
 export class NotificationsApiModule {
   static async forAsyncRoot(options: NotificationsApiCoreModuleOptionsInterface): Promise<DynamicModule> {
@@ -17,8 +18,9 @@ export class NotificationsApiModule {
           inject: [NOTIFICATIONS_API_CONFIG_SERVICE],
         },
         EmailService,
+        PushNotificationService,
       ],
-      exports: [EmailService],
+      exports: [EmailService, PushNotificationService],
     }
   }
 }

@@ -9,3 +9,8 @@ export interface NotificationsApiCoreModuleOptionsInterface {
   inject?: any[]
   imports?: (Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference)[]
 }
+
+export interface SendOptionsInterface {
+  requestId?: string
+  throwOnFailure?: boolean
+}
