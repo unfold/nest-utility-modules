@@ -31,6 +31,7 @@ export interface PushNotificationSendResultInterface {
     message: string
     tokenNotActive?: boolean
   }
+  info?: any
 }
 
 export interface PushNotificationInputInterface {
@@ -85,6 +86,7 @@ export class PushNotificationService {
     return {
       success: result.success,
       error: result.error,
+      info: result.info,
     }
   }
 }
