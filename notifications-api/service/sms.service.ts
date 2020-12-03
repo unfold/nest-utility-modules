@@ -6,11 +6,6 @@ import { SendOptionsInterface } from '../types/interfaces'
 import * as uuid from 'uuid'
 import * as HttpStatus from 'http-status-codes'
 
-interface SmsInputInterface {
-  type: string
-  data: object
-}
-
 interface SmsSendResultInterface {
   success: boolean
   response: {
@@ -23,7 +18,7 @@ interface SmsSendResultInterface {
 export class SmsService {
   constructor(private fetch: FetchService, private config: NotificationApiConfig, private obosToken: ObosSsoGetTokenService) {}
 
-  async send(input: SmsInputInterface, options: SendOptionsInterface = {}): Promise<SmsSendResultInterface> {
+  async send(input: any, options: SendOptionsInterface = {}): Promise<SmsSendResultInterface> {
     const response = await this.fetch.call({
       method: 'POST',
       url: `${this.config.getNotificationApiUrl()}/sms/send`,
