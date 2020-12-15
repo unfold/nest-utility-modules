@@ -16,7 +16,7 @@ class WinstonAdapterLogger extends Logger {
   }
 
   log(message: any, context?: string): any {
-    this.logger.debug(message, { context })
+    this.logger.info(message, { context })
   }
 
   warn(message: any, context?: string): any {
