@@ -1,4 +1,5 @@
 import 'reflect-metadata'
+export * from './functions/base32'
 export * from './functions/delay'
 export * from './functions/string-to-boolean'
 export * from './functions/to-string-value'

@@ -1,3 +1,7 @@
+/* tslint:disable:no-bitwise */
+/* tslint:disable:max-classes-per-file */
+/* tslint:disable:prefer-for-of */
+
 const alphabet = '0123456789abcdefghjkmnpqrtuvwxyz'
 const alias = { o: 0, i: 1, l: 1, s: 5 }
 
@@ -7,37 +11,29 @@ const alias = { o: 0, i: 1, l: 1, s: 5 }
  * Return an object that maps a character to its
  * byte value.
  */
-
-let lookup_table: { [char: string]: number } | undefined
+let lookupTable: { [char: string]: number } | undefined
 const lookup = () => {
-  if (lookup_table) {
-    return lookup_table
+  if (lookupTable) {
+    return lookupTable
   }
 
   // Invert 'alphabet'
-  lookup_table = {}
+  lookupTable = {}
   for (let i = 0; i < alphabet.length; i++) {
-    lookup_table[alphabet[i]] = i
+    lookupTable[alphabet[i]] = i
   }
   // Splice in 'alias'
   for (const key in alias) {
-    if (!alias.hasOwnProperty(key)) continue
-    lookup_table[key] = lookup_table['' + (alias as any)[key]]
+    if (!alias.hasOwnProperty(key)) {
+      continue
+    }
+    lookupTable[key] = lookupTable['' + (alias as any)[key]]
   }
 
-  return lookup_table
+  return lookupTable
 }
 
-/**
- * A streaming encoder
- *
- *     let encoder = new base32.Encoder()
- *     let output1 = encoder.update(input1)
- *     let output2 = encoder.update(input2)
- *     let lastoutput = encode.update(lastinput, true)
- */
-
-export class Base32Encoder {
+class Base32Encoder {
   skip = 0 // how many bits we will skip from the first byte
   bits = 0 // 5 high bits, carry from one byte to the next
 
@@ -47,7 +43,9 @@ export class Base32Encoder {
   // Should not really be used except by "update"
   readByte(byte: string | number) {
     // coerce the byte to an int
-    if (typeof byte == 'string') byte = byte.charCodeAt(0)
+    if (typeof byte === 'string') {
+      byte = byte.charCodeAt(0)
+    }
 
     if (this.skip < 0) {
       // we have a carry from the previous byte
@@ -80,7 +78,7 @@ export class Base32Encoder {
   }
 
   update(input: string, flush?: boolean) {
-    for (let i = 0; i < input.length; ) {
+    for (let i = 0; i < input.length; i) {
       i += this.readByte(input[i])
     }
 
@@ -94,9 +92,7 @@ export class Base32Encoder {
   }
 }
 
-// Functions analogously to Encoder
-
-export class Base32Decoder {
+class Base32Decoder {
   skip = 0 // how many bits we have from the previous character
   byte = 0 // current byte we're producing
 
@@ -106,14 +102,15 @@ export class Base32Decoder {
   // the output in this.output. As before, better
   // to use update().
   readChar(char: string | number) {
-    if (typeof char != 'string') {
-      if (typeof char == 'number') {
+    if (typeof char !== 'string') {
+      if (typeof char === 'number') {
         char = String.fromCharCode(char)
       }
     }
+
     char = char.toLowerCase()
     let val = lookup()[char]
-    if (typeof val == 'undefined') {
+    if (typeof val === 'undefined') {
       // character does not exist in our lookup table
       return // skip silently. An alternative would be:
       // throw Error('Could not find character "' + char + '" in lookup table.')
@@ -126,8 +123,11 @@ export class Base32Decoder {
       // we have enough to preduce output
       this.output += String.fromCharCode(this.byte)
       this.skip -= 8
-      if (this.skip > 0) this.byte = (val << (5 - this.skip)) & 255
-      else this.byte = 0
+      if (this.skip > 0) {
+        this.byte = (val << (5 - this.skip)) & 255
+      } else {
+        this.byte = 0
+      }
     }
   }
 
