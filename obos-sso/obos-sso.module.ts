@@ -7,6 +7,7 @@ import { PassportModule } from '@nestjs/passport'
 import { ObosSsoConfig } from './config/obos-sso.config'
 import { ObosSsoTokenStrategy } from './strategy/obos-sso-token.strategy'
 import { UnfoldUtilsModule } from '../unfold-utils/unfold-utils.module'
+import { isUrl } from '../unfold-utils'
 
 export class ObosSsoModule {
   static forRoot(options: ObosSsoCoreModuleOptionsInterface): DynamicModule {
@@ -17,7 +18,25 @@ export class ObosSsoModule {
       providers: [
         {
           provide: ObosSsoConfig,
-          useFactory: (config: ObosSsoConfigDataInterface) => new ObosSsoConfig(config),
+          useFactory: (config: ObosSsoConfigDataInterface) => {
+            if (!config.OBOS_STATIC_AUTHENTICATION_API_KEY) {
+              if (!config.OBOS_SSO_URL) {
+                throw new Error(`[ObosSsoModule] Parameter 'OBOS_SSO_URL' is required if 'OBOS_STATIC_AUTHENTICATION_API_KEY' is not provided!`)
+              }
+              if (!isUrl(config.OBOS_SSO_URL)) {
+                throw new Error(`[ObosSsoModule] Parameter 'OBOS_SSO_URL' should be valid url (provided value: '${config.OBOS_SSO_URL}')`)
+              }
+              if (!config.OBOS_SSO_APP_ID) {
+                throw new Error(`[ObosSsoModule] Parameter 'OBOS_SSO_APP_ID' is required if 'OBOS_STATIC_AUTHENTICATION_API_KEY' is not provided!`)
+              }
+              if (!config.OBOS_SSO_APP_SECRET) {
+                throw new Error(
+                  `[ObosSsoModule] Parameter 'OBOS_SSO_APP_SECRET' is required if 'OBOS_STATIC_AUTHENTICATION_API_KEY' is not provided!`,
+                )
+              }
+            }
+            return new ObosSsoConfig(config)
+          },
           inject: [OBOS_SSO_MODULE_CONFIG],
         },
         ObosSsoGetTokenService,

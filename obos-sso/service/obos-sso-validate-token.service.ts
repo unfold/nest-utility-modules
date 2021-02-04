@@ -12,9 +12,10 @@ export class ObosSsoValidateTokenService {
     const staticApiKeyToken = this.ssoConfig.getObosSsoStaticAuthenticationApiKey()
 
     // match against api key token for easier testing
-    if (staticApiKeyToken && token === staticApiKeyToken) {
-      this.logger.debug(`Authentication using static token '${staticApiKeyToken}'`)
-      return true
+    if (staticApiKeyToken) {
+      this.logger.debug(`Authentication using static token '${staticApiKeyToken}': ${token === staticApiKeyToken}`)
+
+      return token === staticApiKeyToken
     }
 
     const response = await this.fetch.call({
