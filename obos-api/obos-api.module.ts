@@ -21,7 +21,7 @@ export class ObosApiModule {
             fetchService: FetchService,
             logger: UnfoldLoggerService,
           ): ObosApiClient => {
-            logger.log(`Initialize 'ObosApiClient' with API url: ${obosApiUrl}`)
+            logger.debug(`Initialize 'ObosApiClient' with API url: ${obosApiUrl}`)
 
             return new ObosApiClient(obosApiUrl, obosToken, fetchService, logger)
           },

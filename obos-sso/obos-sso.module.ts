@@ -21,7 +21,7 @@ export class ObosSsoModule {
           provide: ObosSsoConfig,
           useFactory: (config: ObosSsoConfigDataInterface, logger: UnfoldLoggerService) => {
             if (config.OBOS_STATIC_AUTHENTICATION_API_KEY) {
-              logger.log(`Initialize 'ObosSsoModule' with static authentication token: '${config.OBOS_STATIC_AUTHENTICATION_API_KEY}`)
+              logger.debug(`Initialize 'ObosSsoModule' with static authentication token: '${config.OBOS_STATIC_AUTHENTICATION_API_KEY}'`)
 
               return new ObosSsoConfig({
                 OBOS_STATIC_AUTHENTICATION_API_KEY: config.OBOS_STATIC_AUTHENTICATION_API_KEY,
@@ -41,7 +41,7 @@ export class ObosSsoModule {
               throw new Error(`[ObosSsoModule] Parameter 'OBOS_SSO_APP_SECRET' is required if 'OBOS_STATIC_AUTHENTICATION_API_KEY' is not provided!`)
             }
 
-            logger.log(`Initialize 'ObosSsoModule' with OBOS_SSO_URL url: '${config.OBOS_SSO_URL}'`)
+            logger.debug(`Initialize 'ObosSsoModule' with OBOS_SSO_URL url: '${config.OBOS_SSO_URL}'`)
 
             return new ObosSsoConfig(config)
           },
