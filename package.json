@@ -25,8 +25,7 @@
     "format:check": "npm run prettier:check && npm run lint:check",
     "prepush": "npm run test && npm run format:check",
     "test:ci": "npm run prepush",
-    "npm:publish": "git fetch origin master:publish && git push --no-verify origin publish:publish && git branch -D publish",
-    "preinstall": "npx npm-force-resolutions"
+    "npm:publish": "git fetch origin master:publish && git push --no-verify origin publish:publish && git branch -D publish"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
@@ -66,18 +65,15 @@
     "husky": "^4.3.8",
     "jest": "^25.5.4",
     "nodemon": "^2.0.7",
-    "npm-force-resolutions": "0.0.10",
     "prettier": "^2.2.1",
     "ts-jest": "^25.5.1",
     "tslint": "^6.1.3",
     "typescript": "^3.9.9"
   },
   "peerDependencies": {
+    "axios": "^0.21.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.4"
-  },
-  "resolutions": {
-    "axios": "^0.21.1"
   },
   "husky": {
     "hooks": {
