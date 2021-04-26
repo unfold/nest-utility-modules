@@ -25,7 +25,7 @@ export class StyrerommetApiRequest {
         'Content-Type': 'application/json',
         Accept: 'application/json',
         'X-OBOS-APPTOKENID': await this.obosAuthorize.getObosToken(),
-        'X-OBOS-REQUEST-ID': options.requestId ?? `srv-${uuid.v4()}`,
+        requestId: options.requestId ?? `srv-${uuid.v4()}`,
       },
     })
 
