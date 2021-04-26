@@ -1,12 +1,14 @@
 import * as fetch from 'node-fetch'
 import { ObosSsoGetTokenService } from '../../../obos-sso/service/obos-sso-get-token.service'
 import { FetchService } from '../../../unfold-utils/service/fetch.service'
+import * as uuid from 'uuid'
 
 interface StyrerommetApiRequestServiceOptionsInterface {
   readonly method: 'GET' | 'POST'
   readonly endpoint: string
   readonly data?: object | string
   readonly expectedResponseStatus?: number
+  readonly requestId?: string
 }
 
 export class StyrerommetApiRequest {
@@ -23,6 +25,7 @@ export class StyrerommetApiRequest {
         'Content-Type': 'application/json',
         Accept: 'application/json',
         'X-OBOS-APPTOKENID': await this.obosAuthorize.getObosToken(),
+        'X-OBOS-REQUEST-ID': options.requestId ?? `srv-${uuid.v4()}`,
       },
     })
 

@@ -3,17 +3,27 @@ import * as HttpStatus from 'http-status-codes'
 import { StyrerommetApiRequest } from '../request/styrerommet-api-request'
 import { StyrerommetGraphqlResponseStatusError } from './styrerommet-graphql-response-status-error'
 
+interface GraphqlCallInputInterface {
+  query: string
+  variables: object
+}
+
+interface GraphqlCallOptionsInterface {
+  requestId?: string
+}
+
 export class StyrerommetGraphqlClient {
   constructor(private styrerommetApiRequest: StyrerommetApiRequest) {}
 
-  async call<T>(options: { query: string; variables: object }): Promise<T> {
+  async call<T>(input: GraphqlCallInputInterface, options?: GraphqlCallOptionsInterface): Promise<T> {
     const response = await this.styrerommetApiRequest.call({
       endpoint: '/graphql',
       method: 'POST',
       data: {
-        query: options.query,
-        variables: options.variables,
+        query: input.query,
+        variables: input.variables,
       },
+      requestId: options?.requestId,
     })
 
     if (response.status !== HttpStatus.OK) {
