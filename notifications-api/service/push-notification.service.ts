@@ -58,7 +58,7 @@ export class PushNotificationService {
       headers: {
         'X-OBOS-APPTOKENID': await this.obosToken.getObosToken(),
         'Content-Type': 'application/json',
-        'X-OBOS-REQUEST-ID': options.requestId ?? `srv-${uuid.v4()}`,
+        requestId: options.requestId ?? `srv-${uuid.v4()}`,
         Accept: 'application/json',
       },
     })
