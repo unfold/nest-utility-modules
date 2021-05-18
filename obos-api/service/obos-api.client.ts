@@ -3,6 +3,7 @@ import * as fetch from 'node-fetch'
 import { FetchMethod, FetchService } from '../../unfold-utils/service/fetch.service'
 import { ObosSsoGetTokenService } from '../../obos-sso/service/obos-sso-get-token.service'
 import { UnfoldLoggerService } from '../../unfold-logger/service/unfold-logger.service'
+import { isUrl } from '../../unfold-utils'
 
 interface CallObosApiInterface {
   endpoint: string
@@ -15,11 +16,19 @@ interface CallObosApiInterface {
 
 export class ObosApiClient {
   constructor(
-    private obosApiUrl: string,
     private obosToken: ObosSsoGetTokenService,
     private fetchService: FetchService,
     private logger: UnfoldLoggerService,
+    private obosApiUrl?: string,
   ) {}
+
+  private getObosApiUrl(): string {
+    if (this.obosApiUrl && isUrl(this.obosApiUrl)) {
+      return this.obosApiUrl
+    }
+
+    throw new Error(`[ObosApiClient] $obosApiUrl should be a valid url address, given value: ${JSON.stringify(this.obosApiUrl)}`)
+  }
 
   async callApi(options: CallObosApiInterface): Promise<fetch.Response> {
     const response = await this.fetchService.call({
@@ -30,7 +39,7 @@ export class ObosApiClient {
         'X-OBOS-APPTOKENID': await this.obosToken.getObosToken(),
       },
       method: options.method,
-      url: `${this.obosApiUrl}${options.endpoint}`,
+      url: `${this.getObosApiUrl()}${options.endpoint}`,
     })
 
     if (options.successStatus && response.status !== options.successStatus) {

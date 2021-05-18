@@ -1,12 +1,7 @@
-import { DynamicModule, ForwardReference, Type } from '@nestjs/common'
+import { DynamicModule } from '@nestjs/common'
+import { ObosApiCoreModuleOptionsInterface } from './types/interfaces'
 
-export const OBOS_API_CORE_MODULE_API_URL = 'OBOS_CORE_MODULE_API_URL'
-
-export interface ObosApiCoreModuleOptionsInterface {
-  useFactory: (...args: any[]) => Promise<string> | string
-  inject?: any[]
-  imports?: (Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference)[]
-}
+export const OBOS_API_CORE_MODULE_CONFIG = 'OBOS_API_CORE_MODULE_CONFIG'
 
 export class ObosApiCoreModule {
   static forRootAsync(options: ObosApiCoreModuleOptionsInterface): DynamicModule {
@@ -14,12 +9,12 @@ export class ObosApiCoreModule {
       module: ObosApiCoreModule,
       providers: [
         {
-          provide: OBOS_API_CORE_MODULE_API_URL,
+          provide: OBOS_API_CORE_MODULE_CONFIG,
           useFactory: options.useFactory,
           inject: options.inject,
         },
       ],
-      exports: [OBOS_API_CORE_MODULE_API_URL],
+      exports: [OBOS_API_CORE_MODULE_CONFIG],
       imports: options.imports,
     }
   }
