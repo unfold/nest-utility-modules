@@ -35,12 +35,11 @@ export class ObosSsoValidateTokenService {
           return false
         }
 
-        this.logger.error(
-          `[ObosSsoValidateTokenService] Invalid token validation, token: '${token}' response status: '${
-            response.status
-          }', body: ${await response.text()}`,
-        )
-        return false
+        const message = `[ObosSsoValidateTokenService] Invalid token validation, token: '${token}' response status: '${
+          response.status
+        }', body: ${await response.text()}`
+        this.logger.error(message)
+        throw new Error(message)
       },
       {
         logger: this.logger,
