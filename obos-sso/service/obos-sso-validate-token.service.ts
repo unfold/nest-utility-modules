@@ -3,6 +3,7 @@ import * as HttpStatus from 'http-status-codes'
 import { ObosSsoConfig } from '../config/obos-sso.config'
 import { FetchService } from '../../unfold-utils/service/fetch.service'
 import { UnfoldLoggerService } from '../../unfold-logger/service/unfold-logger.service'
+import { withRetry } from '../../unfold-utils'
 
 @Injectable()
 export class ObosSsoValidateTokenService {
@@ -18,20 +19,32 @@ export class ObosSsoValidateTokenService {
       return token === staticApiKeyToken
     }
 
-    const response = await this.fetch.call({
-      method: 'POST',
-      url: `${this.ssoConfig.getObosSsoUrl()}/tokenservice/${token}/validate`,
-    })
+    return withRetry(
+      async () => {
+        const response = await this.fetch.call({
+          method: 'POST',
+          url: `${this.ssoConfig.getObosSsoUrl()}/tokenservice/${token}/validate`,
+        })
 
-    if (response.status !== HttpStatus.OK) {
-      this.logger.error(
-        `[ObosSsoValidateTokenService] Invalid token validation, token: '${token}' response status: '${
-          response.status
-        }', body: ${await response.text()}`,
-      )
-      return false
-    }
+        if (response.status === HttpStatus.OK) {
+          return true
+        }
 
-    return true
+        if (response.status === HttpStatus.CONFLICT) {
+          this.logger.log(`[ObosSsoValidateTokenService] Invalid or expired token '${token}', response status 409`)
+          return false
+        }
+
+        this.logger.error(
+          `[ObosSsoValidateTokenService] Invalid token validation, token: '${token}' response status: '${
+            response.status
+          }', body: ${await response.text()}`,
+        )
+        return false
+      },
+      {
+        logger: this.logger,
+      },
+    )
   }
 }
