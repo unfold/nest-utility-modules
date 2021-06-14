@@ -24,7 +24,11 @@ export class ObosSsoValidateTokenService {
     })
 
     if (response.status !== HttpStatus.OK) {
-      this.logger.error(`[ObosSsoValidateTokenService] Invalid repose for token validation: '${response.status}', body: ${await response.text()}`)
+      this.logger.error(
+        `[ObosSsoValidateTokenService] Invalid token validation, token: '${token}' response status: '${
+          response.status
+        }', body: ${await response.text()}`,
+      )
       return false
     }
 
