@@ -13,7 +13,7 @@ export class ObosSsoValidateTokenService {
 
     // match against api key token for easier testing
     if (staticApiKeyToken) {
-      this.logger.debug(`Authentication using static token '${staticApiKeyToken}': ${token === staticApiKeyToken}`)
+      this.logger.debug(`[ObosSsoValidateTokenService] Authentication using static token '${staticApiKeyToken}': ${token === staticApiKeyToken}`)
 
       return token === staticApiKeyToken
     }
@@ -23,6 +23,11 @@ export class ObosSsoValidateTokenService {
       url: `${this.ssoConfig.getObosSsoUrl()}/tokenservice/${token}/validate`,
     })
 
-    return response.status === HttpStatus.OK
+    if (response.status !== HttpStatus.OK) {
+      this.logger.error(`[ObosSsoValidateTokenService] Invalid repose for token validation: '${response.status}', body: ${await response.text()}`)
+      return false
+    }
+
+    return true
   }
 }
