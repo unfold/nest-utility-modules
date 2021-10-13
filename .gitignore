@@ -10,6 +10,5 @@ tsconfig.tsbuildinfo
 **/*.js
 **/*.js.map
 **/*.d.ts
-!jest.config.js
+!jest.config.cjs
 !/index.js
-!/commitlint.config.js

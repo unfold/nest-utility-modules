@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Utility modules for NestJS projects",
   "main": "index.js",
+  "type": "module",
   "homepage": "https://github.com/unfold/nest-utility-modules#readme",
   "repository": {
     "type": "git",
@@ -15,6 +16,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "nodemon -e ts --ignore dist --exec \"npm run build\"",
+    "build:clear": "find . -type f \\( -name \"*.map\" -o -name \"*.js\" -o -name \"*d.ts\" \\) -mindepth 2 -not -path \"./node_modules/*\" | xargs rm",
     "test": "jest",
     "test:watch": "./clear_build.sh && jest --watch",
     "prettier:fix": "prettier --write '**/*.ts'",
