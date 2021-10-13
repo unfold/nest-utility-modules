@@ -1,6 +1,7 @@
 import * as WinstonTransport from 'winston-transport'
 import { SentryService } from '../service/sentry.service'
 
+// @ts-ignore
 export class SentryTransport extends WinstonTransport {
   constructor(private sentry: SentryService) {
     super()
