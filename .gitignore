@@ -12,3 +12,4 @@ tsconfig.tsbuildinfo
 **/*.d.ts
 !jest.config.js
 !/index.js
+!/commitlint.config.js

@@ -25,7 +25,8 @@
     "format:check": "npm run prettier:check && npm run lint:check",
     "prepush": "npm run test && npm run format:check",
     "test:ci": "npm run prepush",
-    "npm:publish": "git fetch origin master:publish && git push --no-verify origin publish:publish && git branch -D publish"
+    "npm:publish": "git fetch origin master:publish && git push --no-verify origin publish:publish && git branch -D publish",
+    "prepare": "husky install"
   },
   "dependencies": {
     "joi": "17.4.2",
@@ -49,10 +50,11 @@
     "xml2js": "0.4.23"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "13.2.0",
     "@types/express": "4.17.13",
-    "@types/joi": "17.2.3",
     "@types/http-status-codes": "1.2.0",
     "@types/jest": "27.0.2",
+    "@types/joi": "17.2.3",
     "@types/lodash": "4.14.175",
     "@types/logform": "1.10.1",
     "@types/ms": "0.7.31",
@@ -63,7 +65,8 @@
     "@types/uuid": "8.3.1",
     "@types/winston": "2.4.4",
     "@types/xml2js": "0.4.9",
-    "husky": "7.0.2",
+    "commitlint": "13.2.1",
+    "husky": "^7.0.0",
     "jest": "27.2.5",
     "nodemon": "2.0.13",
     "prettier": "2.4.1",
@@ -75,11 +78,5 @@
     "axios": "0.23.0",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.5.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run prepush",
-      "pre-push": "npm run prepush"
-    }
   }
 }
