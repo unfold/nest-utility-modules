@@ -16,7 +16,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "nodemon -e ts --ignore dist --exec \"npm run build\"",
-    "build:clear": "rm -f tsconfig.tsbuildinfo && find . -type f \\( -name \"*.map\" -o -name \"*.js\" -o -name \"*d.ts\" \\) -mindepth 2 -not -path \"./node_modules/*\" | xargs rm",
+    "build:clear": "rm -f tsconfig.tsbuildinfo && find . -type f \\( -name \"*.map\" -o -name \"*.js\" -o -name \"*d.ts\" \\) -mindepth 2 -not -path \"./node_modules/*\" | xargs -r rm -f",
     "test": "npm run build:clear && jest",
     "test:watch": "npm run build:clear && jest --watch",
     "prettier:fix": "prettier --write '**/*.ts'",
