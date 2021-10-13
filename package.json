@@ -28,9 +28,9 @@
     "npm:publish": "git fetch origin master:publish && git push --no-verify origin publish:publish && git branch -D publish"
   },
   "dependencies": {
-    "@hapi/joi": "17.1.1",
-    "@nestjs/common": "7.6.15",
-    "@nestjs/passport": "7.1.5",
+    "joi": "17.4.2",
+    "@nestjs/common": "8.0.11",
+    "@nestjs/passport": "8.0.1",
     "@sentry/node": "5.30.0",
     "dotenv": "8.2.0",
     "express": "4.17.1",
@@ -51,7 +51,7 @@
   "devDependencies": {
     "@types/express": "4.17.11",
     "@types/form-data": "2.5.0",
-    "@types/hapi__joi": "16.0.12",
+    "@types/joi": "17.2.3",
     "@types/http-status-codes": "1.2.0",
     "@types/jest": "25.2.3",
     "@types/lodash": "4.14.168",
