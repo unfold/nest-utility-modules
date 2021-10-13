@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import * as HttpStatus from 'http-status-codes'
+import { StatusCodes as HttpStatus } from 'http-status-codes'
 import { get, isUndefined } from 'lodash'
 import ms = require('ms')
 import { stringify } from 'querystring'

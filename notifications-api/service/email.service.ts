@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { NotificationApiConfig } from '../config/notification-api.config'
-import * as HttpStatus from 'http-status-codes'
+import { StatusCodes as HttpStatus } from 'http-status-codes'
 import { FetchService } from '../../unfold-utils/service/fetch.service'
 import { ObosSsoGetTokenService } from '../../obos-sso/service/obos-sso-get-token.service'
 import * as uuid from 'uuid'

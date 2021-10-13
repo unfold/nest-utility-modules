@@ -4,7 +4,7 @@ import { NotificationApiConfig } from '../config/notification-api.config'
 import { ObosSsoGetTokenService } from '../../obos-sso/service/obos-sso-get-token.service'
 import { SendOptionsInterface } from '../types/interfaces'
 import * as uuid from 'uuid'
-import * as HttpStatus from 'http-status-codes'
+import { StatusCodes as HttpStatus } from 'http-status-codes'
 
 export type DeviceType = 'ios' | 'android'
 

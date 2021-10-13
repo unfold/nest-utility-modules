@@ -1,5 +1,5 @@
 import { isArray } from 'lodash'
-import * as HttpStatus from 'http-status-codes'
+import { StatusCodes as HttpStatus } from 'http-status-codes'
 import { StyrerommetApiRequest } from '../request/styrerommet-api-request'
 import { StyrerommetGraphqlResponseStatusError } from './styrerommet-graphql-response-status-error'
 
