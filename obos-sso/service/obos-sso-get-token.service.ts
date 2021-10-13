@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import { StatusCodes as HttpStatus } from 'http-status-codes'
 import { get, isUndefined } from 'lodash'
-import ms = require('ms')
 import { stringify } from 'querystring'
 import * as xml2js from 'xml2js'
 import { ObosSsoConfig } from '../config/obos-sso.config'
 import { FetchService } from '../../unfold-utils/service/fetch.service'
 import { TimedCacheService } from '../../unfold-utils/service/timed-cache.service'
 import { UnfoldLoggerService } from '../../unfold-logger/service/unfold-logger.service'
+// @ts-ignore
+import ms = require('ms')
 
 @Injectable()
 export class ObosSsoGetTokenService {
