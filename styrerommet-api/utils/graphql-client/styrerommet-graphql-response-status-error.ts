@@ -1,4 +1,4 @@
-import * as HttpStatus from 'http-status-codes'
+import { getReasonPhrase } from 'http-status-codes'
 
 export class StyrerommetGraphqlResponseStatusError extends Error {
   constructor(private httpStatus: number, private responseBody: string) {
@@ -6,7 +6,7 @@ export class StyrerommetGraphqlResponseStatusError extends Error {
   }
 
   get message(): string {
-    return `Invalid status code: ${this.httpStatus} ${HttpStatus.getStatusText(this.httpStatus)}, body: ${this.responseBody}`
+    return `Invalid status code: ${this.httpStatus} ${getReasonPhrase(this.httpStatus)}, body: ${this.responseBody}`
   }
 
   get responseStatus(): number {
