@@ -25,7 +25,8 @@
     "format:check": "npm run prettier:check && npm run lint:check",
     "prepush": "npm run test && npm run format:check",
     "test:ci": "npm run prepush",
-    "npm:publish": "git fetch origin master:publish && git push --no-verify origin publish:publish && git branch -D publish"
+    "npm:publish": "git fetch origin master:publish && git push --no-verify origin publish:publish && git branch -D publish",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@nestjs/common": "8.1.1",
