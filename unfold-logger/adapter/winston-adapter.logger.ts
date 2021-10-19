@@ -1,10 +1,17 @@
 import * as winston from 'winston'
 import * as WinstonTransport from 'winston-transport'
-import { LoggerService } from '@nestjs/common'
-import { TransformableInfo } from 'logform'
+import { ConsoleLogger } from '@nestjs/common'
 
-class WinstonAdapterLogger implements LoggerService {
-  constructor(private readonly logger: winston.Logger) {}
+export interface TransformableInfo {
+  level: string
+  message: string
+  [key: string]: any
+}
+
+class WinstonAdapterLogger extends ConsoleLogger {
+  constructor(private readonly logger: winston.Logger) {
+    super()
+  }
 
   debug(message: string, context?: string): void {
     this.logger.debug(message, { context })

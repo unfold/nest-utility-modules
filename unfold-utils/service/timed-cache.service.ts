@@ -29,7 +29,7 @@ export class TimedCacheService {
         return value
       } catch (error: any) {
         if (this.cache[name]) {
-          this.logger.warn(`Unable to refresh data, using stale value. Error is '${error?.message}'`)
+          this.logger.warn(`Unable to refresh data, using stale value. Error is '${error}'`)
           return this.cache[name].value
         }
         throw error
