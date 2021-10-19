@@ -30,7 +30,7 @@ export class StyrerommetGraphqlClient {
       throw new StyrerommetGraphqlResponseStatusError(response.status, await response.text())
     }
 
-    const data: any = await response.json()
+    const data = await response.json()
 
     if (isArray(data.errors) && data.errors.length > 0) {
       const errorMessages = data.errors.map((error: { message: string; code: string }) => `${error.message} [code: ${error.code}]`)
