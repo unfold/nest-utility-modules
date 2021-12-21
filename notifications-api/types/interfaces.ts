@@ -12,5 +12,6 @@ export interface NotificationsApiCoreModuleOptionsInterface {
 
 export interface SendOptionsInterface {
   requestId?: string
+  jobId?: string
   throwOnFailure?: boolean
 }

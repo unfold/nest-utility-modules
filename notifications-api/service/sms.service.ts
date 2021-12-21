@@ -28,6 +28,7 @@ export class SmsService {
         'Content-Type': 'application/json',
         requestId: options.requestId ?? `srv-${uuid.v4()}`,
         Accept: 'application/json',
+        'X-JOB-ID': options.jobId ?? `n/a`,
       },
     })
 
